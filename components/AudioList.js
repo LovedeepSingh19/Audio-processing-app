@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Audio } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
 
+// eslint-disable-next-line react/prop-types
 const AudioPlayer = ({audioLink}) => {
   const [sound, setSound] = useState();
   

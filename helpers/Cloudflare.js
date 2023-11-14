@@ -2,9 +2,13 @@ import S3 from 'aws-sdk/clients/s3.js';
 
 
 const CloudflareApi = async (audioUri, filename) => {
+
     const s3 = new S3({
+      // eslint-disable-next-line no-undef
       endpoint: `https://${process.env.EXPO_PUBLIC_AWS_ACCOUNTS_ID_TEST}.r2.cloudflarestorage.com`,
+      // eslint-disable-next-line no-undef
       accessKeyId: `${process.env.EXPO_PUBLIC_AWS_ACCESS_ID}`,
+      // eslint-disable-next-line no-undef
       secretAccessKey: `${process.env.EXPO_PUBLIC_AWS_SECRET}`,
       signatureVersion: 'v4',
     });
@@ -12,7 +16,8 @@ const CloudflareApi = async (audioUri, filename) => {
     const data = await fetch(audioUri).then((response) => response.blob())
 
     const params = {
-      Bucket: 'r2assignment',
+      // eslint-disable-next-line no-undef
+      Bucket: process.env.EXPO_PUBLIC_AWS_BUCKET_NAME,
       Key: filename,
       Body: data,
       ContentType: "application/octet-stream",

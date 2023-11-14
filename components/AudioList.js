@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Audio } from 'expo-av';
+import { Ionicons } from '@expo/vector-icons';
 
 const AudioPlayer = ({audioLink}) => {
   const [sound, setSound] = useState();
@@ -33,8 +34,9 @@ const AudioPlayer = ({audioLink}) => {
   };
   return (
     <View>
-      <TouchableOpacity onPress={playSound}>
-        <Text>Play Audio</Text>
+      <TouchableOpacity style={{backgroundColor:'#872341', padding:6, borderRadius:15, flexDirection:'row', justifyContent:'center', alignItems:'center'}} onPress={playSound}>
+        <Ionicons name='play-circle' style={{color:'white', padding:3,}} />
+        <Text style={{color:'white', fontWeight:'600'}}>Play Audio</Text>
       </TouchableOpacity>
     </View>
   );

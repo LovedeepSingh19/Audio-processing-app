@@ -7,7 +7,48 @@
     "plugins": [
       "expo-router"
     ],
-    "name": "my-app",
-    "slug": "my-app"
+    "name": "Recorder-Test",
+    "slug": "Recorder-Test",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.pagepro.testpublishapp",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.pagepro.testpublishapp",
+      "versionCode": 1
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "a1a5eefa-791a-4250-ad58-c3489ac055fb"
+      }
+    },
+    "build": {
+      "production": {
+        "env": {
+          "EXPO_PUBLIC_AWS_ACCOUNTS_ID_TEST": "cf7583eeca265fb997147ddf6a668b1f",
+          "EXPO_PUBLIC_AWS_ACCESS_ID": "2ba2c321408c56a82d1e872175f63052",
+          "EXPO_PUBLIC_AWS_SECRET": "6d0b4aa5cc64875e88549ef2f400cde5b01902085dc63ae23177b06c2c08fe80",
+          "EXPO_PUBLIC_SUPABASE_PUBLIC_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind1amprdHd0YXJscGR0c21na3lkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTk5MDAwNzEsImV4cCI6MjAxNTQ3NjA3MX0.W28M9G4h-0f_8llDY5xuq8BJZ1Y6SR_veBtSB8AqQWU",
+          "EXPO_PUBLIC_SUPABASE_URL": "https://wujjktwtarlpdtsmgkyd.supabase.co"
+        }
+      }
+    }
   }
 }

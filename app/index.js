@@ -23,6 +23,8 @@ export default function Apps() {
   const [audioUri, setAudioUri] = useState(null);
   const [supabaseList, setSupabaseList] = useState([]);
   const [audioPermission, setAudioPermission] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
 
   useEffect(() => {
     getPermission();
@@ -69,11 +71,13 @@ export default function Apps() {
 
   async function PlayAudio(fileName) {
     console.log(filename);
+    setIsLoading(true)
     const playbackObject = new Audio.Sound();
     await playbackObject.loadAsync({
       uri: fileName,
     });
     await playbackObject.playAsync();
+    setIsLoading(false)
   }
 
   async function stopRecording() {
@@ -139,16 +143,17 @@ export default function Apps() {
             }}
           >
             <Pressable
+            disabled={isLoading}
               style={{
-                backgroundColor: "#363062",
+                backgroundColor: isLoading?"#766f94":"#363062",
                 padding: 6,
                 paddingLeft: 10,
                 paddingRight: 10,
                 borderRadius: 20,
               }}
-              onPress={() => {
+              onPress={async () => {
                 console.log("Play");
-                PlayAudio(audioUri);
+                await PlayAudio(audioUri);
               }}
             >
               <Text style={{ color: "#F5E8C7", fontWeight: 500 }}>Play</Text>

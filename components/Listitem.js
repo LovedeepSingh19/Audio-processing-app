@@ -3,6 +3,7 @@ import {
     View,
   } from "react-native";
 import AudioPlayer from "./AudioList";
+import React from "react";
 
 
 const renderItem = ({ item }) => {
@@ -25,6 +26,7 @@ const renderItem = ({ item }) => {
     }:${seconds < 10 ? "0" + seconds : seconds} ${ampm}`;
 
     return (
+      // eslint-disable-next-line react/react-in-jsx-scope
       <View
         style={{
           borderRadius: 20,

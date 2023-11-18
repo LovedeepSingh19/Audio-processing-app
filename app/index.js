@@ -58,10 +58,30 @@ export default function Apps() {
 
       const newRecording = new Audio.Recording();
       console.log("Starting Recording");
-      await newRecording.prepareToRecordAsync(
-        Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
-      );
-      await newRecording.startAsync({shouldCorrectPitch: false});
+  
+      const recordingOptions = {
+        android: {
+          extension: '.wav',
+          outputFormat: Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_DEFAULT,
+          audioEncoder: Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_DEFAULT,
+          sampleRate: Audio.RECORDING_OPTION_ANDROID_SAMPLE_RATE_DEFAULT,
+          numberOfChannels: 2, // Stereo recording
+          bitRate: Audio.RECORDING_OPTION_ANDROID_BIT_RATE_DEFAULT,
+        },
+        ios: {
+          extension: '.wav',
+          audioQuality: Audio.RECORDING_OPTION_IOS_AUDIO_QUALITY_MAX,
+          sampleRate: Audio.RECORDING_OPTION_IOS_SAMPLE_RATE_MAX,
+          numberOfChannels: 2, // Stereo recording
+          bitRate: 128000, // Adjust as needed
+          linearPCMBitDepth: Audio.RECORDING_OPTION_IOS_LINEAR_PCM_BIT_DEPTH_MEDIUM,
+          linearPCMIsBigEndian: false,
+          linearPCMIsFloat: false,
+        },
+      };
+  
+      await newRecording.prepareToRecordAsync(recordingOptions);
+      await newRecording.startAsync();
       setRecording(newRecording);
       setRecordingStatus("recording");
     } catch (error) {
@@ -87,8 +107,10 @@ export default function Apps() {
         console.log("Stopping Recording");
         await recording.stopAndUnloadAsync();
         const uri = recording.getURI();
+      console.log(recording)
+
         setAudioUri(uri);
-        setFilename(`audio/${Date.now()}.caf`);
+        setFilename(`audio/${Date.now()}.wav`);
         setRecording(null);
         setRecordingStatus("stopped");
       }

@@ -1,6 +1,8 @@
 import { supabase } from "../../supabaseService";
 
 const fetchData = async (setSupabaseList) => {
+  console.log("DATA FETCHED")
+
     try {
       const { data, error } = await supabase
         .from('comments')

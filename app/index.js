@@ -21,20 +21,22 @@ export default function Apps() {
   const [recordingStatus, setRecordingStatus] = useState("idle");
   const [filename, setFilename] = useState("");
   const [audioUri, setAudioUri] = useState(null);
+  const [uploadButtonPressed, setUploadButtonPressed] = useState(false);
   const [supabaseList, setSupabaseList] = useState([]);
   const [audioPermission, setAudioPermission] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
-
   useEffect(() => {
     getPermission();
     fetchData(setSupabaseList);
-    // return () => {
-    //   if (recording) {
-    //     stopRecording();
-    //   }
-    // };
-  }, [filename]);
+  }, []);
+
+  useEffect(() => {
+    getPermission();
+    if (uploadButtonPressed) {
+      fetchData(setSupabaseList);
+      setUploadButtonPressed(false); // Reset the state variable
+    }
+  }, [uploadButtonPressed]);
 
   async function getPermission() {
     await Audio.requestPermissionsAsync()
@@ -58,7 +60,7 @@ export default function Apps() {
 
       const newRecording = new Audio.Recording();
       console.log("Starting Recording");
-  
+
       const recordingOptions = {
         android: {
           extension: '.wav',
@@ -79,7 +81,7 @@ export default function Apps() {
           linearPCMIsFloat: false,
         },
       };
-  
+
       await newRecording.prepareToRecordAsync(recordingOptions);
       await newRecording.startAsync();
       setRecording(newRecording);
@@ -107,7 +109,6 @@ export default function Apps() {
         console.log("Stopping Recording");
         await recording.stopAndUnloadAsync();
         const uri = recording.getURI();
-      console.log(recording)
 
         setAudioUri(uri);
         setFilename(`audio/${Date.now()}.wav`);
@@ -166,7 +167,7 @@ export default function Apps() {
             }}
           >
             <Pressable
-            disabled={isLoading}
+              disabled={isLoading}
               style={{
                 backgroundColor: isLoading?"#766f94":"#363062",
                 padding: 6,
@@ -196,6 +197,7 @@ export default function Apps() {
                   console.log(response);
                   setFilename("");
                   setRecordingStatus("idle");
+                  setUploadButtonPressed(true);
                 });
               }}
             >

@@ -61,7 +61,7 @@ export default function Apps() {
       await newRecording.prepareToRecordAsync(
         Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
       );
-      await newRecording.startAsync();
+      await newRecording.startAsync({shouldCorrectPitch: false});
       setRecording(newRecording);
       setRecordingStatus("recording");
     } catch (error) {
@@ -73,9 +73,10 @@ export default function Apps() {
     console.log(filename);
     setIsLoading(true)
     const playbackObject = new Audio.Sound();
-    await playbackObject.loadAsync({
-      uri: fileName,
-    });
+    await playbackObject.loadAsync(
+      { uri: fileName },
+      { shouldCorrectPitch: false }
+    );
     await playbackObject.playAsync();
     setIsLoading(false)
   }
